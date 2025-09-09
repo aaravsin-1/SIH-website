@@ -90,8 +90,25 @@ export default function StudentDetailsForm() {
     }
   };
 
-  const handleSkip = () => {
-    navigate('/');
+  const handleSkip = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      if (user) {
+        // Mark profile as completed even when skipping
+        await supabase.auth.updateUser({
+          data: {
+            ...user.user_metadata,
+            profile_completed: true
+          }
+        });
+      }
+      navigate('/');
+    } catch (error) {
+      // If updating fails, still navigate to avoid blocking the user
+      navigate('/');
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

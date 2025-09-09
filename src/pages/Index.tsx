@@ -9,11 +9,13 @@ import { UpcomingAppointments } from "@/components/UpcomingAppointments";
 import { MessageCircle, Heart, Users, BookOpen, Calendar, Phone } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import heroImage from "@/assets/wellness-hero.jpg";
-
 const Index = () => {
-  const { user, loading, userRole } = useAuth();
+  const {
+    user,
+    loading,
+    userRole
+  } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!loading && !user) {
       navigate('/auth');
@@ -23,7 +25,6 @@ const Index = () => {
       navigate('/student-details');
     }
   }, [user, loading, userRole, navigate]);
-
   const handleCardClick = (action: string) => {
     switch (action) {
       case "book-counseling":
@@ -39,41 +40,29 @@ const Index = () => {
         console.log(`Clicked: ${action}`);
     }
   };
-
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+    return <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading your wellness dashboard...</p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
   if (!user) {
     return null; // Will redirect to auth
   }
-
-  return (
-    <div className="min-h-screen bg-gradient-subtle">
+  return <div className="min-h-screen bg-gradient-subtle">
       <DashboardHeader userName={user.user_metadata?.first_name || "Student"} notifications={3} />
       
       {/* Hero Section */}
       <section className="relative px-6 py-12 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img 
-            src={heroImage} 
-            alt="Campus wellness community" 
-            className="w-full h-full object-cover"
-          />
+          <img src={heroImage} alt="Campus wellness community" className="w-full h-full object-cover font-extrabold text-2xl" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-primary/30"></div>
         </div>
         
         <div className="relative max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent leading-tight">
-            Take charge of your mental wellness
-          </h2>
+          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent leading-tight md:text-3xl">Take charge of your mental wellness</h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Your one-stop digital support system for academic success, mental wellness, and future planning. 
             Confidential, stigma-free, and designed just for you.
@@ -94,41 +83,13 @@ const Index = () => {
           <div className="lg:col-span-2 space-y-6">
             {/* Wellness Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <WellnessCard
-                title="AI Wellness Advisor"
-                description="Get instant, personalized support and coping strategies tailored for you"
-                icon={MessageCircle}
-                gradient="calm"
-                action="Start chatting"
-                whatsappNumber="+919560102128"
-              />
+              <WellnessCard title="AI Wellness Advisor" description="Get instant, personalized support and coping strategies tailored for you" icon={MessageCircle} gradient="calm" action="Start chatting" whatsappNumber="+919560102128" />
               
-              <WellnessCard
-                title="Book Counseling"
-                description="Schedule confidential sessions with campus counselors and mental health professionals"
-                icon={Calendar}
-                gradient="balance"
-                action="View availability"
-                onClick={() => handleCardClick("book-counseling")}
-              />
+              <WellnessCard title="Book Counseling" description="Schedule confidential sessions with campus counselors and mental health professionals" icon={Calendar} gradient="balance" action="View availability" onClick={() => handleCardClick("book-counseling")} />
               
-              <WellnessCard
-                title="Peer Support Community"
-                description="Connect with trained student volunteers and join moderated support forums"
-                icon={Users}
-                gradient="focus"
-                action="Join community"
-                onClick={() => handleCardClick("peer-support")}
-              />
+              <WellnessCard title="Peer Support Community" description="Connect with trained student volunteers and join moderated support forums" icon={Users} gradient="focus" action="Join community" onClick={() => handleCardClick("peer-support")} />
               
-              <WellnessCard
-                title="Crisis Support"
-                description="Access 24/7 emergency support and campus helplines when you need immediate help"
-                icon={Phone}
-                gradient="energy"
-                action="Get help now"
-                onClick={() => handleCardClick("crisis-support")}
-              />
+              <WellnessCard title="Crisis Support" description="Access 24/7 emergency support and campus helplines when you need immediate help" icon={Phone} gradient="energy" action="Get help now" onClick={() => handleCardClick("crisis-support")} />
             </div>
 
             {/* Quick Actions */}
@@ -182,8 +143,6 @@ const Index = () => {
           </div>
         </section>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
