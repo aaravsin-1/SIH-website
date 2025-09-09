@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Calming wellness color palette */
+    --background: 180 20% 98%;
+    --foreground: 200 15% 15%;
+
+    --card: 180 30% 97%;
+    --card-foreground: 200 15% 20%;
+
+    --popover: 180 30% 97%;
+    --popover-foreground: 200 15% 20%;
+
+    /* Primary: Calming teal for trust and serenity */
+    --primary: 175 60% 45%;
+    --primary-foreground: 180 30% 98%;
+    --primary-glow: 175 70% 65%;
+
+    /* Secondary: Soft lavender for warmth and comfort */
+    --secondary: 260 25% 88%;
+    --secondary-foreground: 200 15% 25%;
+
+    /* Muted: Warm neutrals */
+    --muted: 180 15% 92%;
+    --muted-foreground: 200 10% 45%;
+
+    /* Accent: Warm coral for positive actions */
+    --accent: 15 75% 70%;
+    --accent-foreground: 180 30% 98%;
+
+    /* Wellness-specific colors */
+    --wellness-calm: 190 50% 85%;
+    --wellness-energy: 45 85% 75%;
+    --wellness-focus: 275 40% 75%;
+    --wellness-balance: 165 65% 55%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 180 20% 88%;
+    --input: 180 25% 92%;
+    --ring: 175 60% 45%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode wellness colors - calming and easy on eyes */
+    --background: 200 25% 8%;
+    --foreground: 180 15% 92%;
+
+    --card: 200 20% 10%;
+    --card-foreground: 180 15% 90%;
+
+    --popover: 200 20% 10%;
+    --popover-foreground: 180 15% 90%;
+
+    /* Softer primary for dark mode */
+    --primary: 175 45% 55%;
+    --primary-foreground: 200 25% 8%;
+    --primary-glow: 175 55% 70%;
+
+    /* Muted lavender for dark mode */
+    --secondary: 260 15% 25%;
+    --secondary-foreground: 180 15% 85%;
+
+    --muted: 200 15% 18%;
+    --muted-foreground: 180 10% 65%;
+
+    /* Softer coral for dark mode */
+    --accent: 15 60% 65%;
+    --accent-foreground: 200 25% 8%;
+
+    /* Dark mode wellness colors */
+    --wellness-calm: 190 30% 30%;
+    --wellness-energy: 45 60% 50%;
+    --wellness-focus: 275 25% 45%;
+    --wellness-balance: 165 50% 45%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 180 15% 92%;
+
+    --border: 200 15% 20%;
+    --input: 200 15% 18%;
+    --ring: 175 45% 55%;
+    --sidebar-background: 200 25% 8%;
+    --sidebar-foreground: 180 15% 85%;
+    --sidebar-primary: 175 45% 55%;
+    --sidebar-primary-foreground: 200 25% 8%;
+    --sidebar-accent: 200 15% 18%;
+    --sidebar-accent-foreground: 180 15% 85%;
+    --sidebar-border: 200 15% 20%;
+    --sidebar-ring: 175 45% 55%;
+  }
+
+  /* Wellness-specific gradients */
+  .gradient-wellness {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+  }
+
+  .gradient-calm {
+    background: linear-gradient(135deg, hsl(var(--wellness-calm)), hsl(var(--primary-glow)));
+  }
+
+  .gradient-energy {
+    background: linear-gradient(135deg, hsl(var(--wellness-energy)), hsl(var(--accent)));
+  }
+
+  .gradient-subtle {
+    background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
+  }
+
+  /* Gentle animations for wellness UI */
+  .breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Wellness card hover effects */
+  .wellness-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .wellness-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px hsl(var(--primary) / 0.25);
+  }
+
+  /* Smooth theme transitions */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
