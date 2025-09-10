@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CounselorGroupManagement } from "@/components/CounselorGroupManagement";
+import { GroupChat } from "@/components/GroupChat";
 import { Users, ArrowLeft, UserPlus, MessageCircle, Calendar, Settings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
@@ -29,6 +30,7 @@ export default function PeerSupport() {
   const [loading, setLoading] = useState(true);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isManagementOpen, setIsManagementOpen] = useState(false);
+  const [activeChatGroup, setActiveChatGroup] = useState<{ id: string; name: string } | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -237,7 +239,10 @@ export default function PeerSupport() {
                       >
                         Leave Group
                       </Button>
-                      <Button className="flex-1 bg-primary hover:bg-primary-glow">
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary-glow"
+                        onClick={() => setActiveChatGroup({ id: group.id, name: group.name })}
+                      >
                         <MessageCircle className="w-4 h-4 mr-2" />
                         Chat
                       </Button>
@@ -277,6 +282,15 @@ export default function PeerSupport() {
         onClose={() => setIsManagementOpen(false)}
         onGroupsUpdated={loadGroups}
       />
+
+      {activeChatGroup && (
+        <GroupChat
+          groupId={activeChatGroup.id}
+          groupName={activeChatGroup.name}
+          isOpen={!!activeChatGroup}
+          onClose={() => setActiveChatGroup(null)}
+        />
+      )}
     </div>
   );
 }
