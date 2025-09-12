@@ -71,7 +71,7 @@ export const DashboardHeader = ({
             <Menu className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Manas Stithi</h1>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Manas Sthiti</h1>
             <p className="text-sm text-muted-foreground">Your wellness journey starts here</p>
           </div>
         </div>

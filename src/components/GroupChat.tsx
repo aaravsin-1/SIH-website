@@ -36,6 +36,7 @@ interface GroupMessage {
     user_id: string;
     first_name: string | null;
     last_name: string | null;
+    phone: string | null;
   } | null;
   reply_message?: GroupMessage | null;
 }
@@ -84,7 +85,7 @@ export const GroupChat = ({ groupId, groupName, isOpen, onClose }: GroupChatProp
       const userIds = [...new Set(messagesData?.map(m => m.user_id) || [])];
       const { data: profiles } = await supabase
         .from('profiles')
-        .select('user_id, first_name, last_name')
+        .select('user_id, first_name, last_name, phone')
         .in('user_id', userIds);
 
       // Combine messages with profile data
@@ -121,11 +122,30 @@ export const GroupChat = ({ groupId, groupName, isOpen, onClose }: GroupChatProp
         reply_to: replyTo?.id || null
       };
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('group_messages')
-        .insert([messageData]);
+        .insert([messageData])
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Add message immediately to local state for instant feedback
+      if (data) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('user_id, first_name, last_name, phone')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        const messageWithProfile = {
+          ...data,
+          user_profile: profile,
+          reply_message: null
+        };
+
+        setMessages(prev => [...prev, messageWithProfile]);
+      }
 
       setNewMessage('');
       setReplyTo(null);
@@ -212,14 +232,75 @@ export const GroupChat = ({ groupId, groupName, isOpen, onClose }: GroupChatProp
       .on(
         'postgres_changes',
         {
-          event: '*',
+          event: 'INSERT',
+          schema: 'public',
+          table: 'group_messages',
+          filter: `group_id=eq.${groupId}`
+        },
+        async (payload) => {
+          console.log('New message from realtime:', payload);
+          const newMessage = payload.new as GroupMessage;
+          
+          // Skip if this message is from the current user (already added locally)
+          if (newMessage.user_id === user?.id) {
+            console.log('Skipping own message from realtime');
+            return;
+          }
+          
+          // Get user profile for the new message
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('user_id, first_name, last_name, phone')
+            .eq('user_id', newMessage.user_id)
+            .maybeSingle();
+
+          const messageWithProfile = {
+            ...newMessage,
+            user_profile: profile,
+            reply_message: null
+          };
+
+          setMessages(prev => {
+            // Check if message already exists to avoid duplicates
+            if (prev.some(msg => msg.id === newMessage.id)) {
+              return prev;
+            }
+            return [...prev, messageWithProfile];
+          });
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
           schema: 'public',
           table: 'group_messages',
           filter: `group_id=eq.${groupId}`
         },
         (payload) => {
-          console.log('Message update:', payload);
-          loadMessages(); // Reload messages on any change
+          console.log('Message updated:', payload);
+          const updatedMessage = payload.new as GroupMessage;
+          
+          setMessages(prev => prev.map(msg => 
+            msg.id === updatedMessage.id 
+              ? { ...msg, ...updatedMessage }
+              : msg
+          ));
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'group_messages',
+          filter: `group_id=eq.${groupId}`
+        },
+        (payload) => {
+          console.log('Message deleted:', payload);
+          const deletedMessage = payload.old as GroupMessage;
+          
+          setMessages(prev => prev.filter(msg => msg.id !== deletedMessage.id));
         }
       )
       .subscribe();
@@ -318,7 +399,7 @@ export const GroupChat = ({ groupId, groupName, isOpen, onClose }: GroupChatProp
                             <Textarea
                               value={editContent}
                               onChange={(e) => setEditContent(e.target.value)}
-                              className="min-h-[60px]"
+                              className="min-h-[60px] bg-background text-foreground border-border"
                             />
                             <div className="flex gap-2 justify-end">
                               <Button

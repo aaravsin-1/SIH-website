@@ -11,7 +11,7 @@ import { WellnessArticleManagement } from "@/components/WellnessArticleManagemen
 import { SelfCareActivityManagement } from "@/components/SelfCareActivityManagement";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/AuthContext";
-import { UserPlus, BookOpen, MessageSquare, Shield, FileText, Users, Calendar } from "lucide-react";
+import { UserPlus, BookOpen, MessageSquare, Shield, FileText, Users, Calendar, BarChart3 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 const TeacherDashboard = () => {
@@ -92,18 +92,18 @@ const TeacherDashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card className="wellness-card cursor-pointer hover:scale-105 transition-all duration-300 bg-gradient-to-br from-wellness-focus/20 to-wellness-focus/30 border-wellness-focus/30">
+              <Card className="wellness-card cursor-pointer hover:scale-105 transition-all duration-300 bg-gradient-to-br from-wellness-focus/20 to-wellness-focus/30 border-wellness-focus/30" onClick={() => navigate('/student-insights')}>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-wellness-focus/20 flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5 text-wellness-focus" />
+                      <BarChart3 className="w-5 h-5 text-wellness-focus" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-sm">Student Reports</h3>
-                      <p className="text-xs text-muted-foreground">Generate insights</p>
+                      <h3 className="font-semibold text-sm">Student Insights</h3>
+                      <p className="text-xs text-muted-foreground">View detailed analytics</p>
                     </div>
                   </div>
-                  <Badge variant="secondary" className="text-xs">Weekly</Badge>
+                  <Badge variant="secondary" className="text-xs">Analytics</Badge>
                 </CardContent>
               </Card>
 

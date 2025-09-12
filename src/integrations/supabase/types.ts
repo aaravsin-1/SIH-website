@@ -324,6 +324,30 @@ export type Database = {
         }
         Relationships: []
       }
+      predtest: {
+        Row: {
+          id: number
+          phone: string | null
+          prediction: string | null
+          text: Json | null
+          top: string | null
+        }
+        Insert: {
+          id?: number
+          phone?: string | null
+          prediction?: string | null
+          text?: Json | null
+          top?: string | null
+        }
+        Update: {
+          id?: number
+          phone?: string | null
+          prediction?: string | null
+          text?: Json | null
+          top?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

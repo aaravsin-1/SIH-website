@@ -8,42 +8,42 @@ const quickActions = [
     icon: MessageCircle,
     label: "Chat with AI Advisor",
     description: "Get instant, confidential support",
-    color: "bg-primary/10 hover:bg-primary/20 text-primary",
+    color: "bg-primary/20 hover:bg-primary/30 text-foreground",
     action: "chat-advisor"
   },
   {
     icon: Calendar,
     label: "Book Counseling",
     description: "Schedule with a professional",
-    color: "bg-wellness-calm/30 hover:bg-wellness-calm/50 text-primary",
+    color: "bg-secondary hover:bg-secondary/80 text-secondary-foreground",
     action: "book-counseling"
   },
   {
     icon: Users,
     label: "Join Peer Support",
     description: "Connect with other students",
-    color: "bg-wellness-balance/30 hover:bg-wellness-balance/50 text-primary",
+    color: "bg-accent/20 hover:bg-accent/30 text-foreground",
     action: "peer-support"
   },
   {
     icon: BookOpen,
     label: "Wellness Resources",
     description: "Guides, articles, and tools",
-    color: "bg-wellness-focus/30 hover:bg-wellness-focus/50 text-primary",
+    color: "bg-muted hover:bg-muted/80 text-muted-foreground",
     action: "wellness-resources"
   },
   {
     icon: Phone,
     label: "Crisis Helpline",  
-    description: "24/7 emergency support",
-    color: "bg-accent/20 hover:bg-accent/30 text-accent-foreground",
+    description: "Call: 9152987821",
+    color: "bg-destructive/20 hover:bg-destructive/30 text-foreground",
     action: "crisis-helpline"
   },
   {
     icon: HeartHandshake,
     label: "Self-Care Activities",
     description: "Mindfulness and relaxation",
-    color: "bg-wellness-energy/30 hover:bg-wellness-energy/50 text-primary",
+    color: "bg-primary/10 hover:bg-primary/20 text-foreground",
     action: "self-care"
   }
 ];
@@ -70,10 +70,7 @@ export const QuickActions = () => {
         window.location.href = '/self-care-activities';
         break;
       case "crisis-helpline":
-        toast({
-          title: "Crisis Support",
-          description: "In emergency, call 911 or campus security: 555-0123"
-        });
+        window.open('tel:9152987821', '_self');
         break;
       default:
         toast({

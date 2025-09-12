@@ -14,6 +14,7 @@ import AppointmentsManagement from "./pages/AppointmentsManagement";
 import PeerSupport from "./pages/PeerSupport";
 import WellnessResources from "./pages/WellnessResources";
 import SelfCareActivities from "./pages/SelfCareActivities";
+import StudentInsights from "./pages/StudentInsights";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/peer-support" element={<PeerSupport />} />
             <Route path="/wellness-resources" element={<WellnessResources />} />
             <Route path="/self-care-activities" element={<SelfCareActivities />} />
+            <Route path="/student-insights" element={<StudentInsights />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

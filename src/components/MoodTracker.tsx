@@ -7,11 +7,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
 const moods = [
-  { emoji: "😢", label: "Very Low", value: 1, color: "bg-red-100 hover:bg-red-200" },
-  { emoji: "😔", label: "Low", value: 2, color: "bg-orange-100 hover:bg-orange-200" },
-  { emoji: "😐", label: "Okay", value: 3, color: "bg-yellow-100 hover:bg-yellow-200" },
-  { emoji: "🙂", label: "Good", value: 4, color: "bg-green-100 hover:bg-green-200" },
-  { emoji: "😊", label: "Great", value: 5, color: "bg-emerald-100 hover:bg-emerald-200" },
+  { emoji: "😢", label: "Very Low", value: 1, color: "bg-destructive/10 hover:bg-destructive/20" },
+  { emoji: "😔", label: "Low", value: 2, color: "bg-accent/10 hover:bg-accent/20" },
+  { emoji: "😐", label: "Okay", value: 3, color: "bg-muted hover:bg-muted/80" },
+  { emoji: "🙂", label: "Good", value: 4, color: "bg-wellness-balance/20 hover:bg-wellness-balance/30" },
+  { emoji: "😊", label: "Great", value: 5, color: "bg-primary/10 hover:bg-primary/20" },
 ];
 
 export const MoodTracker = () => {
